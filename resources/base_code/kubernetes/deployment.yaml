@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: academy-deployment
+  labels:
+    app: academy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: academy
+  template:
+    metadata:
+      labels:
+        app: academy
+    spec:
+      containers:
+        - name: app
+          image: academy
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080

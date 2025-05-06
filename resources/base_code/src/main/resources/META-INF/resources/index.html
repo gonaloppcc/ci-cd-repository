@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Hibernate ORM with Panache quickstart - Quarkus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+    <style>
+        input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            -webkit-transition: .5s;
+            transition: .5s;
+            outline: 0;
+            font-family: 'Open Sans', serif;
+        }
+    </style>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module("CarManagement", []);
+
+      //Controller Part
+      app.controller("CarManagementController", function ($scope, $http) {
+
+        //Initialize page with default data which is blank in this example
+        $scope.cars = [];
+
+        $scope.form = {
+          id: -1,
+          name: ""
+        };
+
+        //Now load the data from server
+        _refreshPageData();
+
+        $scope.update = function () {
+          var method = "";
+          var url = "";
+          var data = {};
+          if ($scope.form.id == -1) {
+            //Id is absent so add car - POST operation
+            method = "POST";
+            url = '/car';
+            data.brand = $scope.form.brand;
+            data.model = $scope.form.model;
+            data.price = $scope.form.price;
+          } else {
+            //If Id is present, it's edit operation - PUT operation
+            method = "PUT";
+            url = '/car/' + $scope.form.id;
+            data.id = $scope.form.id;
+            data.brand = $scope.form.brand;
+            data.model = $scope.form.model;
+            data.price = $scope.form.price;
+          }
+
+          $http({
+            method: method,
+            url: url,
+            data: angular.toJson(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(_success, _error);
+        };
+
+        $scope.remove = function (car) {
+          $http({
+            method: 'DELETE',
+            url: '/car/' + car.id
+          }).then(_success, _error);
+        };
+
+        $scope.edit = function (car) {
+          $scope.form.id = car.id;
+          $scope.form.brand = car.brand;
+          $scope.form.model = car.model;
+          $scope.form.price = car.price;
+        };
+
+        function _refreshPageData() {
+          $http({
+            method: 'GET',
+            url: '/car'
+          }).then(function successCallback(response) {
+            $scope.cars = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
+          });
+        }
+
+        function _success(response) {
+          _refreshPageData();
+          _clearForm()
+        }
+
+        function _error(response) {
+          alert(response.data.message || response.statusText);
+        }
+
+        //Clear the form
+        function _clearForm() {
+          $scope.form.name = "";
+          $scope.form.id = -1;
+        }
+      });
+    </script>
+</head>
+<body ng-app="CarManagement" ng-controller="CarManagementController">
+
+<div class="container">
+  <h1>Welcome to the Crazy Car Dealership!</h1>
+  <p>This application is designed to help you manage the inventory of our crazy car dealership. You can store the brand, model, and price of each car in our collection.</p>
+  <p>Get ready for a wild ride with our amazing features</p>
+  
+  <h3>Add a new car or edit an existing one</h3>
+  <form ng-submit="update()">
+    <div class="row">
+      <div class="col-6">
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" placeholder="Brand" ng-model="form.brand" size="60"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="model">Model:</label>
+        <input type="text" id="model" placeholder="Model" ng-model="form.model" size="60"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="price">Price:</label>
+        <input type="number" id="price" placeholder="Price" ng-model="form.price" size="60"/>
+      </div>
+    </div>
+    <input type="submit" value="Save"/>
+  </form>
+
+  <h3>Car List</h3>
+  <div class="row">
+    <div class="col-2">Brand</div>
+    <div class="col-2">Model</div>
+    <div class="col-2">Price</div>
+  </div>
+  <div class="row" ng-repeat="car in cars">
+    <div class="col-2">{{ car.brand }}</div>
+    <div class="col-2">{{ car.model }}</div>
+    <div class="col-2">{{ car.price }}</div>
+    <div class="col-4"><a ng-click="edit(car)" class="btn">Edit</a> <a ng-click="remove(car)" class="btn">Remove</a></div>
+  </div>
+</div>
+
+</body>
+</html>

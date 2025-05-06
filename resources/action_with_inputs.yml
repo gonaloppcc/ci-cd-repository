@@ -1,0 +1,13 @@
+name: Replace-With-Your-Action-Name
+description: Replace-With-Your-Action-Description
+inputs:
+  replace_with_your_input_name:
+    description: "Replace-With-Your-Input-Description"
+    required: false
+    default: "Replace-With-Your-Input-Default-Value"
+runs:
+  using: composite
+  steps:
+    - run: |
+        echo "Update me with the necessary commands"
+      shell: bash

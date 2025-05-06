@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: academy-configmap
+data:
+  price.tax.boost: "true"
+  quarkus.datasource.jdbc.url: "jdbc:postgresql://postgres-service:5432/postgres"

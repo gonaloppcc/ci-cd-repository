@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database
+  postgres:
+    image: postgres:14.7
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: academy
+      POSTGRES_PASSWORD: academy
+
+  # Your application
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - postgres

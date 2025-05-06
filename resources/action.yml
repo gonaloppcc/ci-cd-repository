@@ -1,0 +1,8 @@
+name: Replace-With-Your-Action-Name
+description: Replace-With-Your-Action-Description
+runs:
+  using: composite
+  steps:
+    - run: |
+        echo "Update me with the necessary commands"
+      shell: bash
