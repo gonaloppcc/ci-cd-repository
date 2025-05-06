@@ -74,8 +74,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Login to Docker Hub
+      - name: Docker push
         uses: ./.github/actions/docker_push
         with:
           docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          docker_image_name: ${{ env.docker_image_name }}
+          docker_image_name: ${{ env.docker_image_name }}:${{ env.docker_tag_name }}
