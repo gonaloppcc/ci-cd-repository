@@ -43,6 +43,9 @@ jobs:
       - name: Save the docker image to a file
         run: docker save -o ${{env.docker_image_name}}.tar $docker_image_name:$docker_tag_name
         shell: bash
+      - name: ls
+        run: ls -la
+        shell: bash
 
       - name: Upload the docker image file as an artifact
         uses: actions/upload-artifact@v4
