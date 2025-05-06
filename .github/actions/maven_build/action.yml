@@ -1,8 +1,9 @@
 name: Maven Build
-description: I don't know yet
+description: Uses maven to build the code base
 runs:
   using: composite
   steps:
     - name: Build with Maven
+      working-directory: ./resources/base_code
       run: mvn -B package --file pom.xml
       shell: bash
