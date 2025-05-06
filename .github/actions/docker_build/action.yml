@@ -31,10 +31,11 @@ runs:
       shell: bash
 
     - name: Save the docker image to a file
-      run: docker save -o ${{inputs.image_name}}.tar ${{inputs.image_name}}
+      run: docker save -o ${{inputs.image_name}}.tar ${{inputs.image_name}}:${{inputs.tag_name}}
       shell: bash
 
-    - uses: actions/upload-artifact@v4
+    - name: Upload the docker image file as an artifact
+      uses: actions/upload-artifact@v4
       with:
-        name:
+        name: ${{env.ARTIFACT_NAME}}
         path: ${{env.ARTIFACT_NAME}}
