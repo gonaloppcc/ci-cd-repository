@@ -23,6 +23,17 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment in which the workflow is run
+        default: test
+        required: true
+        type: choice
+        options:
+          - Test
+          - Int
+          - E2E
+          - Prod
 
 jobs:
   build:
