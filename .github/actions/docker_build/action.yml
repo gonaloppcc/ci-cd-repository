@@ -24,7 +24,7 @@ runs:
           export TAG="${{ inputs.tag_name }}"
         fi
         
-        docker build . --file ${{ inputs.path_dockerfile }} --tag ${{ inputs.image_name }}:$tag
+        docker build . --file ${{ inputs.path_dockerfile }} --tag ${{ inputs.image_name }}:$TAG
       shell: bash
 
     - name: See the Docker Images
