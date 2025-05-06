@@ -22,7 +22,7 @@ runs:
       working-directory: ./resources/base_code
       run: |
         
-        if [ -z "${{ inputs.tag }}" ]; then
+        if [ -z "${{ inputs.tag_name }}" ]; then
           export TAG=$(date +%s)
         else
           export TAG="${{ inputs.tag_name }}"
