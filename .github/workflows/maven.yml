@@ -38,9 +38,6 @@ jobs:
 
   new_job:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./resources/base_code
     steps:
       - name: See the Docker Images
         run: docker image ls
