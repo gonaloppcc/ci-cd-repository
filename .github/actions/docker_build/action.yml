@@ -1,5 +1,8 @@
 name: Build the docker image
 description: Builds the docker image
+env:
+  ARTIFACT_NAME: "docker_image_file"
+
 inputs:
   path_dockerfile:
     description: "The path of the Dockerfile"
@@ -26,3 +29,12 @@ runs:
         
         docker build . --file ${{ inputs.path_dockerfile }} --tag ${{ inputs.image_name }}:$TAG
       shell: bash
+
+    - name: Save the docker image to a file
+      run: docker save -o ${{inputs.image_name}}.tar ${{inputs.image_name}}
+      shell: bash
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name:
+        path: ${{env.ARTIFACT_NAME}}
