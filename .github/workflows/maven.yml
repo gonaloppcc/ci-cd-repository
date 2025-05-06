@@ -18,7 +18,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./resources/base_code
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -28,4 +30,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file resources/base_code/pom.xml
+      run: mvn -B package --file pom.xml
+
+    - name: Create Dockerfile
+      run: docker build . --file Dockerfile --tag academy:$(date +%s)
