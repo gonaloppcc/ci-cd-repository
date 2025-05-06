@@ -1,0 +1,18 @@
+name: Build the docker image
+description: Builds the docker image
+inputs:
+  replace_with_your_input_name:
+    description: "Replace-With-Your-Input-Description"
+    required: false
+    default: "Replace-With-Your-Input-Default-Value"
+runs:
+  using: composite
+  steps:
+    - name: Create Dockerfile Image
+      working-directory: ./resources/base_code
+      run: docker build . --file Dockerfile --tag academy:$(date +%s)
+      shell: bash
+
+    - name: See the Docker Images
+      run: docker image ls
+      shell: bash
