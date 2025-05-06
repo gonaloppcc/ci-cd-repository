@@ -1,0 +1,19 @@
+name: Docker Push
+description: Pushes the docker image to the docker registry
+inputs:
+  docker_username:
+    required: true
+    description: the docker username of the repository to be pushed
+  docker_image_name:
+    required: true
+    description: the name of the docker image
+runs:
+  using: composite
+  steps:
+    - name: Docker tag image
+      run: docker tag ${{inputs.docker_image_name}} ${{inputs.docker_username}}/${{inputs.docker_image_name}}
+      shell: bash
+
+    - name: Docker push
+      run: docker push ${{inputs.docker_username}}/${{inputs.docker_image_name}}
+      shell: bash
