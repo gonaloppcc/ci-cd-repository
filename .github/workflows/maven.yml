@@ -41,7 +41,7 @@ jobs:
           image_name: $docker_image_name
           tag_name: $docker_tag_name
       - name: Save the docker image to a file
-        run: docker save -o $docker_image_name.tar $docker_image_name:$docker_tag_name
+        run: docker save -o ${{env.docker_image_name}}.tar $docker_image_name:$docker_tag_name
         shell: bash
 
       - name: Upload the docker image file as an artifact
@@ -58,8 +58,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: $docker_image_artifact_name
+
       - name: Display structure of downloaded files
         run: ls -R
+
+      - name: Load docker image
+        run: docker load -i ${{env.docker_image_name}}.tar
+
       - name: See the Docker Images
         run: docker image ls
         shell: bash
