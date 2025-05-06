@@ -48,3 +48,7 @@ jobs:
         run: docker image ls
         shell: bash
 
+      - name: Save the docker image to a file
+        run: docker save -o ${{docker_image_name}}.tar ${{docker_image_name}}
+        shell: bash
+
