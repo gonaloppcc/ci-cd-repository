@@ -1,16 +1,30 @@
 name: Build the docker image
 description: Builds the docker image
 inputs:
-  replace_with_your_input_name:
-    description: "Replace-With-Your-Input-Description"
+  path_dockerfile:
+    description: "The path of the Dockerfile"
     required: false
-    default: "Replace-With-Your-Input-Default-Value"
+    default: "Dockerfile"
+  image_name:
+    description: "The name for the generated Docker image"
+    required: true
+  tag_name:
+    description: "The tag to be added to the final image"
+    required: false
 runs:
   using: composite
   steps:
     - name: Create Dockerfile Image
       working-directory: ./resources/base_code
-      run: docker build . --file Dockerfile --tag academy:$(date +%s)
+      run: |
+        
+        if [ -z "${{ inputs.tag }}" ]; then
+          export TAG=$(date +%s)
+        else
+          export TAG="${{ inputs.tag_name }}"
+        fi
+        
+        docker build . --file ${{ inputs.path_dockerfile }} --tag ${{ inputs.image_name }}:$tag
       shell: bash
 
     - name: See the Docker Images
