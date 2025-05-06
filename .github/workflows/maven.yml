@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{env.docker_image_artifact_name}}
-          path: "${{env.docker_image_name}}.tar"
+          path: "./resources/base_code/${{env.docker_image_name}}.tar"
 
   new_job:
     runs-on: ubuntu-latest
