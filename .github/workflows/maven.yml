@@ -18,10 +18,10 @@ env:
   POSTGRES_DB: postgres
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
   workflow_dispatch:
     inputs:
       environment:
@@ -88,6 +88,7 @@ jobs:
           path: "./resources/base_code/${{env.docker_image_name}}.tar"
 
   new_job:
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     needs: build
     steps:
