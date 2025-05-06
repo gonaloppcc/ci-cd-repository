@@ -3,6 +3,6 @@ description: I don't know yet
 runs:
   using: composite
   steps:
-    - run: |
-        echo "Update me with the necessary commands"
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
       shell: bash
