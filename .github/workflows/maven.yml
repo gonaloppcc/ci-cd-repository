@@ -44,6 +44,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Download the docker image file
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{env.}}
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: See the Docker Images
         run: docker image ls
         shell: bash

@@ -1,8 +1,5 @@
 name: Build the docker image
 description: Builds the docker image
-env:
-  ARTIFACT_NAME: "docker_image_file"
-
 inputs:
   path_dockerfile:
     description: "The path of the Dockerfile"
@@ -14,6 +11,10 @@ inputs:
   tag_name:
     description: "The tag to be added to the final image"
     required: false
+  artifact_name:
+    description: "The name of the artifact"
+    required: false
+    default: "docker_image_file_artifact_name"
 runs:
   using: composite
   steps:
@@ -37,5 +38,5 @@ runs:
     - name: Upload the docker image file as an artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{env.ARTIFACT_NAME}}
-        path: ${{env.ARTIFACT_NAME}}
+        name: ${{inputs.artifact_name}}
+        path: ${{inputs.artifact_name}}
