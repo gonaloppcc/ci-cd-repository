@@ -22,15 +22,17 @@ jobs:
       run:
         working-directory: ./resources/base_code
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
 
-    - uses: ./.github/actions/maven_build
+      - uses: ./.github/actions/maven_build
 
-    - uses: ./.github/actions/docker_build
+      - uses: ./.github/actions/docker_build
+        with:
+          image_name: 'academy'
 
