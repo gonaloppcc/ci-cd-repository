@@ -26,7 +26,3 @@ runs:
         
         docker build . --file ${{ inputs.path_dockerfile }} --tag ${{ inputs.image_name }}:$TAG
       shell: bash
-
-    - name: See the Docker Images
-      run: docker image ls
-      shell: bash

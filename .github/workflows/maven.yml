@@ -16,7 +16,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -36,4 +35,14 @@ jobs:
         with:
           image_name: 'academy'
           tag_name: 1.0
+
+  new_job:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./resources/base_code
+    steps:
+      - name: See the Docker Images
+        run: docker image ls
+        shell: bash
 
